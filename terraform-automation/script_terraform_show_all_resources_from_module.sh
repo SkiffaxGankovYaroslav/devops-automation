@@ -3,8 +3,8 @@
 #
 # ----------------------------------
 # Script reads file 'terraform_show' and outputs resources that match the first argument
-# Example of usage with argument 'module.peer-devops':
-# ./script_terraform_show_all_resources_from_module.sh module.peer-devops
+# Example of usage with argument 'module.peer-devops-access-devops-k8s':
+# ./script_terraform_show_all_resources_from_module.sh module.peer-devops-access-devops-k8s
 #
 # It is needed to create file terraform_show. Example:
 # terraform show -no-color > terraform_show
