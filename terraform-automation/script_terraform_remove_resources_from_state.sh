@@ -3,7 +3,7 @@
 #for debug
 filename="to_import.txt"
 if [ "$1" != "" ] ; then #если параметр передан, то перезаписываем его
-    filename=$1
+    filename="$1"
 fi
 echo "Filename: ${filename}"
 echo "Number of lines: $(wc "${filename}" | awk '{ print $2 }')"
@@ -18,7 +18,7 @@ temp=$y
 resource_in_code=$(echo "${temp}" | cut -d \; -f 1)
 resource_in_real_id=$(echo "${temp}" | cut -d \; -f 2)
 echo -e "\033[33m${counter}: terraform state rm ${resource_in_code}"
-#terraform import "${resource_in_code}" "${resource_in_real_id}"
+terraform state rm "${resource_in_code}"
 ((counter++))
 done < "${filename}"
 echo -e "\033[33m-----------main loop end-----------"
