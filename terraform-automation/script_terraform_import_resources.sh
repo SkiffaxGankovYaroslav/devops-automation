@@ -14,11 +14,15 @@ counter=1
 while read y
 do
 temp=$y
-#First - name_resource in code. Second - id or identifier resource in real. Delimiter is char ';'
-resource_in_code=$(echo "${temp}" | cut -d \; -f 1)
-resource_in_real_id=$(echo "${temp}" | cut -d \; -f 2)
-echo -e "\033[33m${counter}: terraform import ${resource_in_code} ${resource_in_real_id}"
-terraform import "${resource_in_code}" "${resource_in_real_id}"
+if [ $(echo "${temp}" | egrep -v "^( ){0,}#") ] ; then
+    #First - name_resource in code. Second - id or identifier resource in real. Delimiter is char ';'
+    resource_in_code=$(echo "${temp}" | cut -d \; -f 1)
+    resource_in_real_id=$(echo "${temp}" | cut -d \; -f 2)
+    echo -e "\033[33m${counter}: terraform import ${resource_in_code} ${resource_in_real_id}"
+    terraform import "${resource_in_code}" "${resource_in_real_id}"
+else
+    echo -e "\033[33m${counter}: \033[31mignored/commented: \033[37m${temp}"
+fi
 ((counter++))
 done < "${filename}"
 echo -e "\033[33m-----------main loop end-----------"
