@@ -15,6 +15,8 @@ if [ "$2" != "" ] ; then #если параметр передан, то пер�
     filename="$2"
 fi
 echo -e "\033[33mResources:\033[0m"
-cat ${filename} | grep --color=always "$1" | sed -e "s/^# //;s/:$/;/"
+argument1=$(echo "$1" | sed -e "s/$;//")
+#echo "argument1: ${argument1}"
+cat ${filename} | grep --color=always "$argument1" | sed -e "s/^# //;s/:$/;/"
 echo -e "\033[33mMore Data with id:\033[0m"
-cat ${filename} | grep -A 50 --color=always -P "$1" | grep -C 100 --color=always -P "$1|\bid"
+cat ${filename} | grep -A 50 --color=always -P "$argument1" | grep -C 100 --color=always -P "$argument1|\bid.*|route_table_id.*|destination_cidr_block.*"
